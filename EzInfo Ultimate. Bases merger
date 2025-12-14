@@ -262,7 +262,7 @@ class Logger:
         self.separator('─')
         
         self.subheader(f"{Emoji.FILE} ОБРАБОТКА ФАЙЛОВ:")
-        self.logger.info(f"  📊 Обработано файлов:     {Colors.GREEN}{self.stats['processed_files']}{Colors.RESET}")
+        self.logger.info(f"  {Emoji.STATS} Обработано файлов:     {Colors.GREEN}{self.stats['processed_files']}{Colors.RESET}")
         self.logger.info(f"  ⏭️  Пропущено файлов:      {Colors.YELLOW}{self.stats['skipped_files']}{Colors.RESET}")
         if CONFIG['PROCESS_TECH_BASES']:
             self.logger.info(f"  🔧 Tech баз обработано:   {Colors.CYAN}{self.stats['tech_files']}{Colors.RESET}")
@@ -1211,10 +1211,11 @@ class DatabaseManager:
             self.logger.update_stats('out_players', stats['out_players'])
             self.logger.update_stats('restored_players', stats['restored_players'])
             
+            # ИСПРАВЛЕНИЕ: Добавлены пробелы между эмодзи и текстом
             self.logger.info(f"  {Emoji.SUCCESS} Результат: {Colors.GREEN}+{stats['new_players']}{Colors.RESET} новых, "
-                           f"{Colors.BLUE}↻{stats['updated_players']}{Colors.RESET} обновлено, "
-                           f"{Colors.MAGENTA}♻{stats['restored_players']}{Colors.RESET} восстановлено, "
-                           f"{Colors.YELLOW}✗{stats['out_players']}{Colors.RESET} неактивных")
+                           f"{Colors.BLUE}↻ {stats['updated_players']}{Colors.RESET} обновлено, "
+                           f"{Colors.MAGENTA}♻ {stats['restored_players']}{Colors.RESET} восстановлено, "
+                           f"{Colors.YELLOW}✗ {stats['out_players']}{Colors.RESET} неактивных")
             
             return True
             
@@ -1450,11 +1451,11 @@ class DatabaseManager:
                     for i, (guild, count) in enumerate(guilds, 1):
                         percentage = count / live * 100
                         medal = ""
-                        if i == 1: medal = "🥇"
-                        elif i == 2: medal = "🥈"
-                        elif i == 3: medal = "🥉"
-                        else: medal = f"{i}."
-                        self.logger.info(f"  {medal} {guild[:40]:40} {Colors.CYAN}{count:4}{Colors.RESET} игр. {percentage:5.1f}%")
+                        if i == 1: medal = "🥇 "
+                        elif i == 2: medal = "🥈 "
+                        elif i == 3: medal = "🥉 "
+                        else: medal = f"{i}. "
+                        self.logger.info(f"  {medal}{guild[:40]:40} {Colors.CYAN}{count:4}{Colors.RESET} игр. {percentage:5.1f}%")
                 
                 cursor.execute("""
                     SELECT class, COUNT(*) as count 
